@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
+    <title>支付界面</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/signin.css}" rel="stylesheet">
+    <script src="../static/js/jquery-1.10.2.js"></script>
+</head>
+<script language="javascript">
+    var num = 9; //倒计时的秒数
+    var URL = "/cancelOrderView?orderId=[[${orderId}]]";
+    var id = window.setInterval('doUpdate()', 1000);
+    function doUpdate() {
+        document.getElementById('page_div').innerHTML = '支付时间还剩'+num+'秒' ;
+        if(num == 0) {
+            window.clearInterval(id);
+            window.location = URL;
+        }
+        num --;
+    }
+</script>
+<body>
+<div  th:text="${orderId}"></div>
+<div>订单创建成功</div>
+<div class="time"> <p id="page_div">支付时间还剩10s，请尽快支付</p>
+<a th:href="@{/pay/(orderId=${orderId})}">去支付</a>
+</div>
+</body>
+</html>
